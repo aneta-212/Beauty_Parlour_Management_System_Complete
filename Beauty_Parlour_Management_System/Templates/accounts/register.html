@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    .register-section{
+        min-height:85vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:
+        linear-gradient(
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0.75)
+        ),
+        url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600');
+        background-size:cover;
+        background-position:center;
+        padding:50px 0;
+    }
+
+    .register-card{
+        border:none;
+        border-radius:20px;
+        overflow:hidden;
+        box-shadow:0 10px 30px rgba(0,0,0,0.15);
+        background:white;
+    }
+
+    .register-card h2{
+        color:#ff4f8b;
+        font-weight:700;
+    }
+
+    .beauty-icon{
+        font-size:60px;
+        text-align:center;
+        color:#ff4f8b;
+        margin-bottom:15px;
+    }
+
+    .form-control{
+        border-radius:12px;
+        padding:12px;
+        border:1px solid #ddd;
+    }
+
+    .form-control:focus{
+        border-color:#ff4f8b;
+        box-shadow:0 0 10px rgba(255,79,139,0.2);
+    }
+
+    .btn-register{
+        background:#ff4f8b;
+        color:white;
+        border:none;
+        padding:12px;
+        border-radius:30px;
+        font-weight:600;
+        transition:0.3s;
+    }
+
+    .btn-register:hover{
+        background:#ff2d74;
+        color:white;
+    }
+
+    .login-link a{
+        color:#ff4f8b;
+        font-weight:600;
+        text-decoration:none;
+    }
+
+    .login-link a:hover{
+        text-decoration:underline;
+    }
+
+    .help-text{
+        font-size:13px;
+        color:#666;
+        margin-top:5px;
+    }
+
+</style>
+
+<div class="register-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-6">
+
+                <div class="card register-card p-4">
+
+                    <div class="beauty-icon">
+                        ✨
+                    </div>
+
+                    <h2 class="text-center mb-4">
+                        Create Your Account
+                    </h2>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+<button type="submit"
+                                class="btn btn-register w-100">
+
+                            Create Account
+
+                        </button>
+
+                    </form>
+
+                    <hr>
+
+                    <p class="text-center login-link">
+
+                        Already have an account?
+
+                        <a href="/accounts/login/">
+                            Login Here
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

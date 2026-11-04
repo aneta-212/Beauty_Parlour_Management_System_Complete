@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    .login-section{
+        min-height:85vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:
+        linear-gradient(
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0.75)
+        ),
+        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600');
+        background-size:cover;
+        background-position:center;
+        padding:50px 0;
+    }
+
+    .login-card{
+        border:none;
+        border-radius:20px;
+        background:white;
+        box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .beauty-icon{
+        font-size:60px;
+        text-align:center;
+        margin-bottom:15px;
+    }
+
+    .login-card h2{
+        color:#ff4f8b;
+        font-weight:700;
+    }
+
+    .form-control{
+        border-radius:12px;
+        padding:12px;
+    }
+
+    .form-control:focus{
+        border-color:#ff4f8b;
+        box-shadow:0 0 10px rgba(255,79,139,0.2);
+    }
+
+    .btn-login{
+        background:#ff4f8b;
+        color:white;
+        border:none;
+        padding:12px;
+        border-radius:30px;
+        font-weight:600;
+    }
+
+    .btn-login:hover{
+        background:#ff2d74;
+        color:white;
+    }
+
+    .register-link a{
+        color:#ff4f8b;
+        text-decoration:none;
+        font-weight:600;
+    }
+
+    .register-link a:hover{
+        text-decoration:underline;
+    }
+
+</style>
+
+<div class="login-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-5">
+
+                <div class="card login-card p-4">
+
+                    <div class="beauty-icon">
+                        💄
+                    </div>
+
+                    <h2 class="text-center mb-4">
+                        Welcome Back
+                    </h2>
+
+                    
+
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST">
+
+                        {% csrf_token %}<input type="hidden" name="next" value="{{ request.GET.next }}">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Username, Email or Phone Number
+                            </label>
+
+                            <input type="text"
+                                   name="login"
+                                   class="form-control"
+                                   placeholder="Enter Username, Email or Phone Number"
+                                   required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   placeholder="Enter Password"
+                                   required>
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-login w-100">
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+                    <p class="text-center mt-3"><a href="{% url 'password_reset' %}">Forgot password?</a></p><hr>
+
+                    <p class="text-center register-link">
+
+                        Don't have an account?
+
+                        <a href="/accounts/register/">
+                            Register Here
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

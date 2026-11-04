@@ -1,0 +1,663 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    :root{
+        --bp-ink:#241f22;
+        --bp-muted:#6d6469;
+        --bp-line:#eadde2;
+        --bp-soft:#fff7fa;
+        --bp-rose:#ff4f8b;
+        --bp-rose-dark:#dc2f6e;
+        --bp-green:#23766b;
+        --bp-gold:#b88632;
+    }
+
+    .home-page{
+        color:var(--bp-ink);
+        background:#fff;
+    }
+
+    .home-hero{
+        min-height:calc(100vh - 82px);
+        display:flex;
+        align-items:center;
+        background:
+            linear-gradient(90deg, rgba(36,31,34,.90) 0%, rgba(36,31,34,.68) 45%, rgba(36,31,34,.12) 100%),
+            url("https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat;
+        padding:90px 0 70px;
+        position:relative;
+    }
+
+    .hero-copy{
+        max-width:680px;
+        color:#fff;
+    }
+
+    .hero-kicker,
+    .section-kicker{
+        margin-bottom:12px;
+        color:#ffd4e2;
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:3px;
+        text-transform:uppercase;
+    }
+
+    .hero-copy h1{
+        margin-bottom:22px;
+        font-size:clamp(42px, 7vw, 78px);
+        line-height:1.02;
+        font-weight:700;
+    }
+
+    .hero-copy p{
+        max-width:590px;
+        margin-bottom:30px;
+        color:rgba(255,255,255,.88);
+        font-size:18px;
+        line-height:1.8;
+    }
+
+    .hero-actions{
+        display:flex;
+        flex-wrap:wrap;
+        gap:14px;
+        align-items:center;
+    }
+
+    .home-btn,
+    .home-btn-outline{
+        min-height:50px;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:13px 28px;
+        border-radius:999px;
+        font-weight:700;
+        text-decoration:none;
+        transition:.25s ease;
+    }
+
+    .home-btn{
+        color:#fff;
+        background:var(--bp-rose);
+        box-shadow:0 16px 30px rgba(255,79,139,.28);
+    }
+
+    .home-btn:hover{
+        color:#fff;
+        background:var(--bp-rose-dark);
+        transform:translateY(-2px);
+    }
+
+    .home-btn-outline{
+        color:#fff;
+        border:1px solid rgba(255,255,255,.7);
+        background:rgba(255,255,255,.08);
+    }
+
+    .home-btn-outline:hover{
+        color:var(--bp-ink);
+        background:#fff;
+    }
+
+    .hero-panel{
+        margin-top:46px;
+        display:grid;
+        grid-template-columns:repeat(3, minmax(0,1fr));
+        gap:1px;
+        max-width:780px;
+        border:1px solid rgba(255,255,255,.22);
+        background:rgba(255,255,255,.22);
+        backdrop-filter:blur(12px);
+    }
+
+    .hero-panel div{
+        min-height:112px;
+        padding:22px;
+        background:rgba(255,255,255,.13);
+        color:#fff;
+    }
+
+    .hero-panel strong{
+        display:block;
+        margin-bottom:6px;
+        font-size:28px;
+        line-height:1;
+    }
+
+    .hero-panel span{
+        color:rgba(255,255,255,.82);
+        font-size:14px;
+    }
+
+    .home-section{
+        padding:86px 0;
+    }
+
+    .home-section.alt{
+        background:var(--bp-soft);
+    }
+
+    .section-heading{
+        max-width:720px;
+        margin:0 auto 42px;
+        text-align:center;
+    }
+
+    .section-heading h2{
+        margin-bottom:14px;
+        font-size:clamp(30px, 4vw, 46px);
+    }
+
+    .section-heading p{
+        margin:0;
+        color:var(--bp-muted);
+        font-size:17px;
+        line-height:1.75;
+    }
+
+    .section-kicker{
+        color:var(--bp-rose);
+    }
+
+    .service-card,
+    .feature-card,
+    .testimonial-card{
+        height:100%;
+        border:1px solid var(--bp-line);
+        border-radius:18px;
+        background:#fff;
+        overflow:hidden;
+        box-shadow:0 12px 30px rgba(36,31,34,.07);
+    }
+
+    .service-card img{
+        width:100%;
+        height:245px;
+        object-fit:cover;
+    }
+
+    .service-body{
+        padding:24px;
+    }
+
+    .service-body h3,
+    .feature-card h3{
+        margin-bottom:10px;
+        font-size:22px;
+        font-weight:700;
+    }
+
+    .service-body p,
+    .feature-card p,
+    .testimonial-card p{
+        margin-bottom:0;
+        color:var(--bp-muted);
+        line-height:1.7;
+    }
+
+    .service-meta{
+        margin-top:18px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        color:var(--bp-rose-dark);
+        font-weight:700;
+    }
+
+    .about-image{
+        min-height:520px;
+        border-radius:22px;
+        background:
+            linear-gradient(180deg, rgba(255,79,139,.05), rgba(35,118,107,.20)),
+            url("https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=85") center/cover no-repeat;
+        box-shadow:0 18px 45px rgba(36,31,34,.13);
+    }
+
+    .about-content{
+        padding-left:28px;
+    }
+
+    .about-content h2{
+        margin-bottom:18px;
+        font-size:clamp(30px, 4vw, 46px);
+    }
+
+    .about-content p{
+        color:var(--bp-muted);
+        line-height:1.8;
+        font-size:17px;
+    }
+
+    .check-list{
+        display:grid;
+        gap:14px;
+        margin:28px 0 32px;
+        padding:0;
+        list-style:none;
+    }
+
+    .check-list li{
+        display:flex;
+        align-items:flex-start;
+        gap:12px;
+        color:var(--bp-ink);
+        font-weight:600;
+    }
+
+    .check-list span{
+        flex:0 0 28px;
+        width:28px;
+        height:28px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        color:#fff;
+        background:var(--bp-green);
+        font-size:14px;
+        line-height:1;
+    }
+
+    .feature-card{
+        padding:30px;
+    }
+
+    .feature-icon{
+        width:54px;
+        height:54px;
+        display:grid;
+        place-items:center;
+        margin-bottom:22px;
+        border-radius:16px;
+        color:#fff;
+        background:linear-gradient(135deg, var(--bp-rose), var(--bp-green));
+        font-weight:800;
+    }
+
+    .gallery-grid{
+        display:grid;
+        grid-template-columns:1.2fr .8fr 1fr;
+        grid-auto-rows:230px;
+        gap:18px;
+    }
+
+    .gallery-item{
+        border-radius:20px;
+        background-position:center;
+        background-size:cover;
+        overflow:hidden;
+        box-shadow:0 12px 30px rgba(36,31,34,.10);
+    }
+
+    .gallery-item.tall{
+        grid-row:span 2;
+    }
+
+    .testimonial-card{
+        padding:28px;
+    }
+
+    .stars{
+        margin-bottom:18px;
+        color:var(--bp-gold);
+        letter-spacing:2px;
+        font-weight:700;
+    }
+
+    .client{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        margin-top:24px;
+    }
+
+    .client-avatar{
+        width:46px;
+        height:46px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        color:#fff;
+        background:var(--bp-rose);
+        font-weight:700;
+    }
+
+    .client strong{
+        display:block;
+    }
+
+    .client span{
+        color:var(--bp-muted);
+        font-size:14px;
+    }
+
+    .home-cta{
+        padding:76px 0;
+        color:#fff;
+        background:
+            linear-gradient(90deg, rgba(35,118,107,.94), rgba(220,47,110,.88)),
+            url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1600&q=85") center/cover no-repeat;
+    }
+
+    .home-cta h2{
+        margin-bottom:12px;
+        font-size:clamp(30px, 4vw, 48px);
+    }
+
+    .home-cta p{
+        max-width:650px;
+        margin:0 auto 26px;
+        color:rgba(255,255,255,.88);
+        line-height:1.75;
+    }
+
+    @media(max-width:991px){
+        .home-hero{
+            min-height:auto;
+            padding:80px 0;
+            background:
+                linear-gradient(180deg, rgba(36,31,34,.88), rgba(36,31,34,.48)),
+                url("https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1400&q=85") center/cover no-repeat;
+        }
+
+        .hero-panel{
+            grid-template-columns:1fr;
+        }
+
+        .about-content{
+            padding-left:0;
+            margin-top:34px;
+        }
+
+        .about-image{
+            min-height:380px;
+        }
+
+        .gallery-grid{
+            grid-template-columns:1fr 1fr;
+        }
+    }
+
+    @media(max-width:767px){
+        .home-section{
+            padding:62px 0;
+        }
+
+        .home-hero{
+            text-align:center;
+            padding:70px 0 56px;
+        }
+
+        .hero-copy p{
+            font-size:16px;
+        }
+
+        .hero-actions{
+            justify-content:center;
+        }
+
+        .home-btn,
+        .home-btn-outline{
+            width:100%;
+        }
+
+        .hero-panel{
+            margin-top:34px;
+            text-align:left;
+        }
+
+        .gallery-grid{
+            grid-template-columns:1fr;
+            grid-auto-rows:240px;
+        }
+
+        .gallery-item.tall{
+            grid-row:span 1;
+        }
+    }
+</style>
+
+<main class="home-page">
+
+    <section class="home-hero">
+        <div class="container">
+            <div class="hero-copy">
+                <div class="hero-kicker">Beauty salon and spa</div>
+                <h1>Glow beautifully with expert salon care</h1>
+                <p>
+                    Book professional hair, skin, makeup, spa, and bridal services from one easy beauty parlour management system.
+                    Enjoy skilled beauticians, premium products, and appointment slots that fit your day.
+                </p>
+                <div class="hero-actions">
+                    <a href="/booking/" class="home-btn">Book Appointment</a>
+                    <a href="/services/" class="home-btn-outline">Explore Services</a>
+                </div>
+            </div>
+
+            <div class="hero-panel">
+                <div>
+                    <strong>10+</strong>
+                    <span>Years of beauty care experience</span>
+                </div>
+                <div>
+                    <strong>25+</strong>
+                    <span>Hair, skin, makeup and spa services</span>
+                </div>
+                <div>
+                    <strong>5k+</strong>
+                    <span>Happy customers served with care</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <div class="container">
+            <div class="section-heading">
+                <div class="section-kicker">Popular services</div>
+                <h2>Everything your customers need to feel their best</h2>
+                <p>
+                    A polished service showcase for your beauty parlour website, with clear paths to browse services or book an appointment.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=85" alt="Hair styling service">
+                        <div class="service-body">
+                            <h3>Hair Styling</h3>
+                            <p>Haircuts, blow dry, smoothening, coloring, and nourishing treatments for healthy shine.</p>
+                            <div class="service-meta">
+                                <span>From Rs. 700</span>
+                                <span>45 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=85" alt="Facial treatment service">
+                        <div class="service-body">
+                            <h3>Facial Treatments</h3>
+                            <p>Deep cleansing, brightening, anti-tan, gold facial, and skin care packages.</p>
+                            <div class="service-meta">
+                                <span>From Rs. 1,200</span>
+                                <span>60 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=900&q=85" alt="Bridal makeup service">
+                        <div class="service-body">
+                            <h3>Bridal Makeup</h3>
+                            <p>Complete bridal looks with makeup, hair, draping, touch-up plans, and trial sessions.</p>
+                            <div class="service-meta">
+                                <span>From Rs. 6,500</span>
+                                <span>150 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/services/" class="home-btn">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section alt">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-image" role="img" aria-label="Beauty parlour treatment room"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="section-kicker">About us</div>
+                        <h2>A calm, hygienic space for everyday beauty and special moments</h2>
+                        <p>
+                            Our beauty parlour focuses on personal care, professional service, and easy appointment handling.
+                            Customers can discover services, book visits, and connect with your salon quickly from any device.
+                        </p>
+                        <ul class="check-list">
+                            <li><span>OK</span>Certified beauticians and makeup artists</li>
+                            <li><span>OK</span>Premium products for hair, skin, and nails</li>
+                            <li><span>OK</span>Clean service rooms and customer-first care</li>
+                        </ul>
+                        <a href="/about/" class="home-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <div class="container">
+            <div class="section-heading">
+                <div class="section-kicker">Why choose us</div>
+                <h2>Designed for trust, comfort, and easy booking</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">01</div>
+                        <h3>Expert Staff</h3>
+                        <p>Experienced professionals for styling, skin care, bridal makeup, and spa services.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">02</div>
+                        <h3>Easy Booking</h3>
+                        <p>Customers can reserve appointments online without calling the salon desk.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">03</div>
+                        <h3>Clean Setup</h3>
+                        <p>A hygienic beauty environment with organized products, tools, and service rooms.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">04</div>
+                        <h3>Fair Pricing</h3>
+                        <p>Clear services, durations, and pricing so customers know what to expect.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section alt">
+        <div class="container">
+            <div class="section-heading">
+                <div class="section-kicker">Salon gallery</div>
+                <h2>A glimpse of your beauty experience</h2>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item tall" style="background-image:url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=900&q=85');"></div>
+                <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=85');"></div>
+                <div class="gallery-item tall" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=85');"></div>
+                <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=900&q=85');"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <div class="container">
+            <div class="section-heading">
+                <div class="section-kicker">Testimonials</div>
+                <h2>Loved by customers</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">5 / 5</div>
+                        <p>"My bridal makeup looked elegant and lasted all day. The team was patient, professional, and very friendly."</p>
+                        <div class="client">
+                            <div class="client-avatar">PS</div>
+                            <div>
+                                <strong>Priya S.</strong>
+                                <span>Bridal customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">5 / 5</div>
+                        <p>"The facial treatment was relaxing and my skin felt fresh. Booking the appointment was simple."</p>
+                        <div class="client">
+                            <div class="client-avatar">AR</div>
+                            <div>
+                                <strong>Anjali R.</strong>
+                                <span>Skin care customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="stars">5 / 5</div>
+                        <p>"Clean salon, good products, and excellent hair styling. I will definitely visit again."</p>
+                        <div class="client">
+                            <div class="client-avatar">MK</div>
+                            <div>
+                                <strong>Meera K.</strong>
+                                <span>Hair styling customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-cta text-center">
+        <div class="container">
+            <h2>Ready for your next beauty appointment?</h2>
+            <p>
+                Reserve your preferred service and time slot today. Your customers get a smooth booking experience, and your salon team stays organized.
+            </p>
+            <a href="/booking/" class="home-btn">Book Appointment Now</a>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
